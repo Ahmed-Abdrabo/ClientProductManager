@@ -1,0 +1,81 @@
+﻿@page
+@model ClientProductManager.Pages.Clients.IndexModel
+
+@{
+    ViewData["Title"] = "Clients";
+}
+
+<div class="card rounded-5 my-4 border-0 shadow">
+    <div class="card-header rounded-top-5 bg-primary bg-gradient py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white fw-bold py-2">Client List</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <div class="row pb-3">
+            <div class="col-6">
+            </div>
+            <div class="col-6 text-end">
+                <a asp-page="./Upsert" class="btn btn-primary rounded-pill">
+                    <i class="bi bi-plus-circle"></i> Create New Client
+                </a>
+            </div>
+        </div>
+
+        <table class="table-bordered table-striped table">
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Class</th>
+                    <th>State</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Clients != null && Model.Clients.Any())
+                {
+                    foreach (var client in Model.Clients)
+                    {
+                        <tr>
+                            <td>@client.Code</td>
+                            <td>@client.Name</td>
+                            <td>@client.Class</td>
+                            <td>@client.State</td>
+                            <td>
+                                <a asp-page="./Details" asp-route-id="@client.Id" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i> Details
+                                </a>
+                                <a asp-page="./Upsert" asp-route-id="@client.Id" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil"></i> Edit
+                                </a>
+                                <a asp-page="./Delete" asp-route-id="@client.Id" class="btn btn-danger btn-sm">
+                                    <i class="bi bi-trash"></i> Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="text-center">No clients found.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
+                        <a class="page-link" asp-page="./Index" asp-route-pageIndex="@i">@i</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+</div>

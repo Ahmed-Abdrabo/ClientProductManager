@@ -1,0 +1,62 @@
+﻿@page
+@model ClientProductManager.Pages.Clients.DeleteModel
+
+<div class="card rounded-5 my-4 border-0 shadow">
+    <div class="card-header rounded-top-5 bg-danger bg-gradient py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Delete Client</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form method="post" class="row">
+            <input asp-for="Client.Id" hidden />
+            <div class="row">
+                <div class="col-12">
+                    <div class="p-3 border">
+                        <h5 class="text-danger">Are you sure you want to delete this client?</h5>
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <div class="alert alert-danger rounded-3">
+                                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                                {
+                                    <p>@error.ErrorMessage</p>
+                                }
+                            </div>
+                        }
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="Client.Name" class="form-control border-0 shadow" readonly />
+                            <label asp-for="Client.Name" class="ms-2"></label>
+                        </div>
+
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="Client.Code" class="form-control border-0 shadow" readonly />
+                            <label asp-for="Client.Code" class="ms-2"></label>
+                        </div>
+
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="Client.Class" class="form-control border-0 shadow" readonly />
+                            <label asp-for="Client.Class" class="ms-2"></label>
+                        </div>
+
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="Client.State" class="form-control border-0 shadow" readonly />
+                            <label asp-for="Client.State" class="ms-2"></label>
+                        </div>
+
+                        <div class="row pt-2">
+                            <div class="col-6 col-md-3">
+                                <button type="submit" class="btn btn-danger rounded-4 form-control">Delete</button>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <a asp-page="Index" class="btn btn-outline-danger rounded-4 form-control border">Back to List</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

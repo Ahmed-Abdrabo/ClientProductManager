@@ -1,0 +1,88 @@
+﻿@page
+@model ClientProductManager.Pages.ClientsProducts.IndexModel
+@{
+    ViewData["Title"] = "Client Products";
+}
+
+<div class="card rounded-5 my-4 border-0 shadow">
+    <div class="card-header rounded-top-5 bg-primary bg-gradient py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white fw-bold py-2">Client Products List</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <div class="row pb-3">
+            <div class="col-6">
+            </div>
+            <div class="col-6 text-end">
+                <a asp-page="./Upsert" class="btn btn-primary rounded-pill">
+                    <i class="bi bi-plus-circle"></i> Add New Client Product
+                </a>
+            </div>
+        </div>
+
+        <table class="table-bordered table-striped table">
+            <thead>
+                <tr>
+                    <th>Client Name</th>
+                    <th>Product Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>License</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.ClientProducts != null && Model.ClientProducts.Any())
+                {
+                    foreach (var clientProduct in Model.ClientProducts)
+                    {
+                        <tr>
+                            <td>@clientProduct.Client.Name</td>
+                            <td>@clientProduct.Product.Name</td>
+                            <td>@clientProduct.StartDate.ToString("yyyy-MM-dd")</td>
+                            <td>
+                                @if (clientProduct.EndDate.HasValue)
+                                {
+                                    @clientProduct.EndDate.Value.ToString("dd-MMM-yyyy")
+                                }
+                                else
+                                {
+                                    <span>N/A</span>
+                                }
+                            </td>
+                            <td>@clientProduct.License</td>
+                            <td>
+                                <a asp-page="./Details" asp-route-clientId="@clientProduct.ClientId"
+                                   asp-route-productId="@clientProduct.ProductId" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i> Details
+                                </a>
+                                <a asp-page="./Upsert"
+                                   asp-route-clientId="@clientProduct.ClientId"
+                                   asp-route-productId="@clientProduct.ProductId"
+                                   class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil"></i> Edit
+                                </a>
+
+                                <a asp-page="./Delete" 
+                                asp-route-clientId="@clientProduct.ClientId"
+                                 asp-route-productId="@clientProduct.ProductId"
+                                   class="btn btn-danger btn-sm">
+                                    <i class="bi bi-trash"></i> Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center">No client products found.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

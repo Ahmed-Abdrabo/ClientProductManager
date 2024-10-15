@@ -1,0 +1,79 @@
+﻿@page
+@model ClientProductManager.Pages.Products.IndexModel
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="card rounded-5 my-4 border-0 shadow">
+    <div class="card-header rounded-top-5 bg-primary bg-gradient py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white fw-bold py-2">Products List</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <div class="row pb-3">
+            <div class="col-6">
+            </div>
+            <div class="col-6 text-end">
+                <a asp-page="./Upsert" class="btn btn-primary rounded-pill">
+                    <i class="bi bi-plus-circle"></i> Create New Product
+                </a>
+            </div>
+        </div>
+
+        <table class="table-bordered table-striped table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Is Active</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Products != null && Model.Products.Any())
+                {
+                    foreach (var product in Model.Products)
+                    {
+                        <tr>
+                            <td>@product.Name</td>
+                            <td>@product.Description</td>
+                            <td>@product.IsActive</td>
+                            <td>
+                                <a asp-page="./Details" asp-route-id="@product.Id" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i> Details
+                                </a>
+                                <a asp-page="./Upsert" asp-route-id="@product.Id" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil"></i> Edit
+                                </a>
+                                <a asp-page="./Delete" asp-route-id="@product.Id" class="btn btn-danger btn-sm">
+                                    <i class="bi bi-trash"></i> Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="text-center">No Products found.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
+                        <a class="page-link" asp-page="./Index" asp-route-pageIndex="@i">@i</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+</div>

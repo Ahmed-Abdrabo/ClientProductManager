@@ -1,0 +1,74 @@
+﻿@page
+@model ClientProductManager.Pages.Clients.DetailsModel
+
+<div class="card rounded-4 mt-4 mb-1 border-0 shadow">
+    <div class="card-header rounded-top-5 bg-primary bg-gradient py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white fw-bold py-2">Client Details</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="py-3">
+            <div class="row mb-3">
+                <div class="col-sm-4"><strong>Client Name:</strong></div>
+                <div class="col-sm-8">@Model.ClientVM.Name</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-4"><strong>Client Code:</strong></div>
+                <div class="col-sm-8">@Model.ClientVM.Code</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-4"><strong>Client State:</strong></div>
+                <div class="col-sm-8">@Model.ClientVM.State</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-4"><strong>Client Class:</strong></div>
+                <div class="col-sm-8">@Model.ClientVM.Class</div>
+            </div>
+        </div>
+
+        <h5 class="text-dark fw-bold">Related Products</h5>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Description</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>License</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.ClientProducts.Any())
+                    {
+                        foreach (var clientProduct in Model.ClientProducts)
+                        {
+                            <tr>
+                                <td>@clientProduct.ProductName</td>
+                                <td>@clientProduct.ProductDescription</td>
+                                <td>@clientProduct.StartDate.ToShortDateString()</td>
+                                <td>@(clientProduct.EndDate.HasValue ? clientProduct.EndDate.Value.ToShortDateString() : "N/A")</td>
+                                <td>@clientProduct.License</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center">No related products found.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row pt-4">
+            <div class="col-12">
+                <a asp-page="Index" class="btn btn-outline-primary rounded-4 form-control">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,104 @@
+﻿@page
+@model ClientProductManager.Pages.ClientsProducts.UpsertModel
+<div class="card rounded-5 my-4 border-0 shadow">
+    <div class="card-header rounded-top-5 bg-primary bg-gradient py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2"> @(Model.ClientProductVM.ClientId != 0 && Model.ClientProductVM.ProductId != 0 ? "Update" : "Create") Client Product</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form method="post" class="row">
+             @if (Model.ClientProductVM.ClientId != 0)
+             {
+            <input type="hidden" asp-for="ClientProductVM.ClientId" />
+             }
+            @if (Model.ClientProductVM.ProductId != 0)
+            {
+                <input type="hidden" asp-for="ClientProductVM.ProductId" />
+            }
+            <div class="row">
+                <div class="col-12">
+                    <div class="p-3 border">
+                        <div class="form-floating py-2 col-12">
+                            @if (Model.ClientProductVM.ClientId != 0)
+                            {
+                                <select asp-for="ClientProductVM.ClientId" asp-items="Model.ClientProductVM.ClientList" class="form-select border-0 shadow" disabled>
+                                    <option disabled>--Select Client--</option>
+                                </select>
+                            }
+                            else
+                            {
+                                <select asp-for="ClientProductVM.ClientId" asp-items="Model.ClientProductVM.ClientList" class="form-select border-0 shadow">
+                                    <option disabled selected>--Select Client--</option>
+                                </select>
+                            }
+                            <label asp-for="ClientProductVM.ClientId" class="ms-2"></label>
+                            <span asp-validation-for="ClientProductVM.ClientId" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating py-2 col-12">
+                            @if (Model.ClientProductVM.ProductId != 0)
+                            {
+                                <select asp-for="ClientProductVM.ProductId" asp-items="Model.ClientProductVM.ProductList" class="form-select border-0 shadow" disabled>
+                                    <option disabled>--Select Product--</option>
+                                </select>
+                            }
+                            else
+                            {
+                                <select asp-for="ClientProductVM.ProductId" asp-items="Model.ClientProductVM.ProductList" class="form-select border-0 shadow">
+                                    <option disabled selected>--Select Product--</option>
+                                </select>
+                            }
+                            <label asp-for="ClientProductVM.ProductId" class="ms-2"></label>
+                            <span asp-validation-for="ClientProductVM.ProductId" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="ClientProductVM.StartDate" class="form-control border-0 shadow" />
+                            <label asp-for="ClientProductVM.StartDate" class="ms-2"></label>
+                            <span asp-validation-for="ClientProductVM.StartDate" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="ClientProductVM.EndDate" class="form-control border-0 shadow" />
+                            <label asp-for="ClientProductVM.EndDate" class="ms-2"></label>
+                            <span asp-validation-for="ClientProductVM.EndDate" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="ClientProductVM.License" class="form-control border-0 shadow" />
+                            <label asp-for="ClientProductVM.License" class="ms-2"></label>
+                            <span asp-validation-for="ClientProductVM.License" class="text-danger"></span>
+                        </div>
+
+                        <div class="row pt-2">
+                            <div class="col-6 col-md-3">
+                                @if (Model.ClientProductVM.ClientId != 0 && Model.ClientProductVM.ProductId != 0)
+                                {
+                                    <button type="submit" class="btn btn-primary rounded-4 form-control">Update</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-primary rounded-4 form-control">Create</button>
+                                }
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <a asp-page="Index" class="btn btn-outline-primary rounded-4 form-control border">
+                                    Back to List
+                                </a>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

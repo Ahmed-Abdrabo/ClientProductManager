@@ -1,0 +1,61 @@
+﻿@page
+@model ClientProductManager.Pages.Products.UpsertModel
+<div class="card rounded-5 my-4 border-0 shadow">
+    <div class="card-header rounded-top-5 bg-primary bg-gradient py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2"> @(Model.ProductVM.Id != 0 ? "Update" : "Create") Product</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form method="post" class="row">
+            <input asp-for="ProductVM.Id" hidden />
+            <div class="row">
+                <div class="col-12">
+                    <div class="p-3 border">
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="ProductVM.Name" class="form-control border-0 shadow" />
+                            <label asp-for="ProductVM.Name" class="ms-2"></label>
+                            <span asp-validation-for="ProductVM.Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating py-2 col-12">
+                            <textarea asp-for="ProductVM.Description" class="form-control border-0 shadow" rows="3"></textarea>
+                            <label asp-for="ProductVM.Description" class="ms-2 text-muted"></label>
+                            <span asp-validation-for="ProductVM.Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-check py-2 col-12">
+                            <label asp-for="ProductVM.IsActive" class="form-check-label ms-2">Is Active</label>
+                            <input asp-for="ProductVM.IsActive" class="form-check-input" type="checkbox" />
+                            <span asp-validation-for="ProductVM.IsActive" class="text-danger"></span>
+                        </div>
+
+                        <div class="row pt-2">
+                            <div class="col-6 col-md-3">
+                                @if (Model.ProductVM.Id != 0)
+                                {
+                                    <button type="submit" class="btn btn-primary rounded-4 form-control">Update</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-primary rounded-4 form-control">Create</button>
+                                }
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <a asp-page="Index" class="btn btn-outline-primary rounded-4 form-control border">
+                                    Back to List
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+         <partial name="_ValidationScriptsPartial" />
+}

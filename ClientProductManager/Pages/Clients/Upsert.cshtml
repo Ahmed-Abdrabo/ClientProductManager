@@ -1,0 +1,79 @@
+﻿@page
+@model ClientProductManager.Pages.Clients.UpsertModel
+
+<div class="card rounded-5 my-4 border-0 shadow">
+    <div class="card-header rounded-top-5 bg-primary bg-gradient py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2"> @(Model.ClientVM.Id != 0 ? "Update" : "Create") Client</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form method="post" class="row">
+            <input asp-for="ClientVM.Id" hidden />
+            <div class="row">
+                <div class="col-12">
+                    <div class="p-3 border">
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="ClientVM.Name" class="form-control border-0 shadow" />
+                            <label asp-for="ClientVM.Name" class="ms-2"></label>
+                            <span asp-validation-for="ClientVM.Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+
+                        @if (Model.ClientVM.Id != 0)
+                        {
+                             <input asp-for="ClientVM.Code" class="form-control border-0 shadow" readonly />
+                        }
+                        else
+                        {
+                            <input asp-for="ClientVM.Code" class="form-control border-0 shadow"  />
+                        }
+                            <label asp-for="ClientVM.Code" class="ms-2"></label>
+                            <span asp-validation-for="ClientVM.Code" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating py-2 col-12">
+                            <select asp-for="ClientVM.Class" asp-items="Model.ClientVM.ClassList" class="form-select border-0 shadow">
+                                <option disabled selected>--Select Class--</option>
+                            </select>
+                            <label asp-for="ClientVM.Class" class="ms-2"></label>
+                            <span asp-validation-for="ClientVM.Class" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating py-2 col-12">
+                            <select asp-for="ClientVM.State" asp-items="Model.ClientVM.StateList" class="form-select border-0 shadow">
+                                <option disabled selected>--Select State--</option>
+                            </select>
+                            <label asp-for="ClientVM.State" class="ms-2"></label>
+                            <span asp-validation-for="ClientVM.State" class="text-danger"></span>
+                        </div>
+
+                        <div class="row pt-2">
+                            <div class="col-6 col-md-3">
+                                @if (Model.ClientVM.Id != 0)
+                                {
+                                    <button type="submit" class="btn btn-primary rounded-4 form-control">Update</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-primary rounded-4 form-control">Create</button>
+                                }
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <a asp-page="Index" class="btn btn-outline-primary rounded-4 form-control border">
+                                    Back to List
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
